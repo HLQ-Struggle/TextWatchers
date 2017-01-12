@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="15dp"
+    tools:context="com.hlq.textwatcher.MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="本示例Demo主要为大家展示如何在用户输入手机号或者身份证的时候自动添加空格或者-" />
+
+    <EditText
+        android:id="@+id/edt_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="我是手机号"
+        android:maxLength="13"
+        android:padding="15dp" />
+
+    <EditText
+        android:id="@+id/edt_idcard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="我是身份证号"
+        android:maxLength="13"
+        android:padding="15dp" />
+</LinearLayout>
