@@ -17,6 +17,10 @@ public class TextWatcherListener {
 
     private TextWatcher watcher;
 
+    // 设置追加内容
+    private char addContentType = ' ';
+//    private char addContentType='-';
+
     private static final int TEXT_WATCHER_STATES = 1;
     public static final String TEXT_WATCHER_PHONE = "phoneNum";
     public static final String TEXT_WATCHER_IDCARD = "idCard";
@@ -36,12 +40,9 @@ public class TextWatcherListener {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (count == TEXT_WATCHER_STATES) {
-                int textLength = s.toString().length();
-                if (textLength == 3 || textLength == 8) {
-                    editText.setText(s + " ");
-                    editText.setSelection(editText.getText().toString().length());
-                }
+            // 校验EditText内容是否为空
+            if (s == null || s.length() == 0) {
+                return;
             }
         }
 
@@ -58,12 +59,35 @@ public class TextWatcherListener {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (count == TEXT_WATCHER_STATES) {
-                int textLength = s.toString().length();
-                if (textLength == 3 || textLength == 7 || textLength == 12 || textLength == 17) {
-                    editText.setText(s + " ");
-                    editText.setSelection(editText.getText().toString().length());
+            if (s == null || s.length() == 0)
+                return;
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < s.length(); i++) {
+                if (i != 6 && i != 15 && s.charAt(i) == ' ') {
+                    continue;
+                } else {
+                    sb.append(s.charAt(i));
+                    if ((sb.length() == 7 || sb.length() == 16)
+                            && sb.charAt(sb.length() - 1) != ' ') {
+                        sb.insert(sb.length() - 1, ' ');
+                    }
                 }
+            }
+            if (!sb.toString().equals(s.toString())) {
+                int index = start + 1;
+                if (sb.charAt(start) == ' ') {
+                    if (before == 0) {
+                        index++;
+                    } else {
+                        index--;
+                    }
+                } else {
+                    if (before == 1) {
+                        index--;
+                    }
+                }
+                editText.setText(sb.toString());
+                editText.setSelection(index);
             }
         }
 
